@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground')
+const ejsMate = require('ejs-mate')
+const morgan = require('morgan')
+
 
 const methodOverride = require('method-override');
 const campground = require('./models/campground');
@@ -16,12 +19,18 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
+app.use(morgan('tiny'))
 
+
+app.get('/', async (req, res) => {
+    res.render('campgrounds/homepage')
+})
 //create a new camp
 app.get('/makecampground', async (req, res) => {
     const camp = new Campground({ title: 'My Backyard', description: 'Cheap camping' });
