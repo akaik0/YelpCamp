@@ -3,18 +3,27 @@
     <div class="row"></div>
     <h1 class="text-center">New campground</h1>
     <div class="col-6 offset-3">
-        <form action="/campgrounds" method="POST">
+        <form action="/campgrounds" method="POST" novalidate class="needs-validation">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" name="campground[title]" id="title">
+                <input class="form-control" type="text" name="campground[title]" id="title" required>
+            </div>
+            <div class="vvalid-feedback">
+                Looks good!
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" name="campground[location]" id="location">
+                <input class="form-control" type="text" name="campground[location]" id="location" required>
+            </div>
+            <div class="vvalid-feedback">
+                Looks good!
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image url</label>
-                <input class="form-control" type="text" name="campground[image]" id="image">
+                <input class="form-control" type="text" name="campground[image]" id="image" required>
+            </div>
+            <div class="vvalid-feedback">
+                Looks good!
             </div>
 
             <div class="mb-3">
@@ -22,14 +31,15 @@
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
                     <input type="text" class="form-control" placeholder="0.00" aria-label="price"
-                        aria-describedby="price-label">
+                        aria-describedby="price-label" required>
                 </div>
 
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="desc">Description</label>
-                <textarea class="form-control" type="text" name="campground[description]" id="location"></textarea>
+                <textarea class="form-control" type="text" name="campground[description]" id="location"
+                    required></textarea>
             </div>
             <button class="btn btn-dark">Add campground</button>
         </form>
