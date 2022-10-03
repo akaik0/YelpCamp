@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-6  d-flex justify-content-center align-items-center">
 
-            <div class="card">
+            <div class="card shadow">
                 <img class="card-img-top" src=" <%= campground.image %>  " alt="">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -17,7 +17,7 @@
                     </p>
                     <a class="btn btn-dark mb-2" href="/campgrounds/<%= campground._id %>/edit ">Edit</a>
                     <form action="/campgrounds/<%=campground._id %>?_method=DELETE" method="post">
-                        <button class="btn btn-dander mb-2">Delete</button>
+                        <button class="btn btn-danger mb-2">Delete</button>
                     </form>
                     <a class="btn btn-dark mb-3" href="/campgrounds">Back to the campgrounds</a>
 
@@ -31,7 +31,7 @@
                         <label for="body" class="form-label">Review</label>
                         <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3"
                             required></textarea>
-                        <button class="btn btn-success">Submit</button>
+                        <button class="btn btn-success mt-2">Submit</button>
                     </form>
                 </div>
             </div>
