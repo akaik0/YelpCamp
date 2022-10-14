@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { authorize } = require('passport');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
@@ -8,9 +7,8 @@ const reviewSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-
     }
 });
 
+module.exports = mongoose.model("Review", reviewSchema);
 
-module.exports = mongoose.model('Review', reviewSchema)

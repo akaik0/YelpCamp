@@ -1,31 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const catchAsync = require('../utils/catchAsync')
-const campgrounds = require('../controllers/campgrounds')
+const campgrounds = require('../controllers/campgrounds');
+const catchAsync = require('../utils/catchAsync');
+const { isLoggedIn, isAuthor, validateCampground } = require('../middleware');
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local')
-const { isLoggedIn, isAuthor, validateCampground } = require('../middleware')
-
-const ExpressError = require('../utils/ExpressError')
-const Campground = require('../models/campground')
+const Campground = require('../models/campground');
 
 router.route('/')
-    .get(campgrounds.homepage)
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground))
+    .get(catchAsync(campgrounds.index))
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground))
 
 
-//view all of the camps
-router.get('/all', catchAsync(campgrounds.index))
+router.get('/new', isLoggedIn, campgrounds.renderNewForm)
 
-//new camp
-router.get('/new', isLoggedIn, campgrounds.new)
-
-//view a precise camp
 router.route('/:id')
-    .get(campgrounds.viewCampground)
-    .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampgrounds))
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
-//edit campground
-router.get('/:id/edit', isAuthor, isLoggedIn, catchAsync(campgrounds.editForm))
+    .get(catchAsync(campgrounds.showCampground))
+    .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
+    .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
+
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm))
+
+
+
 module.exports = router;
